@@ -2,6 +2,7 @@ import type { Command } from 'commander';
 import { printJson } from '../format.ts';
 
 const PORT = process.env.ORACLE_PORT || '47778';
+const BASE_URL = process.env.ORACLE_URL || `http://localhost:${PORT}`;
 
 export function registerServer(program: Command): void {
   const srv = program
@@ -17,10 +18,10 @@ export function registerServer(program: Command): void {
     .action(async (opts) => {
       // Check if already running
       try {
-        const health = await fetch(`http://localhost:${PORT}/api/health`);
+        const health = await fetch(`${BASE_URL}/api/health`);
         if (health.ok) {
-          if (opts.json) return printJson({ started: true, already_running: true, port: PORT, url: `http://localhost:${PORT}` });
-          console.log(`Oracle server already running on port ${PORT}.`);
+          if (opts.json) return printJson({ started: true, already_running: true, url: BASE_URL });
+          console.log(`Oracle server already running at ${BASE_URL}.`);
           return;
         }
       } catch {
@@ -40,17 +41,16 @@ export function registerServer(program: Command): void {
       while (Date.now() < deadline) {
         await new Promise(r => setTimeout(r, 500));
         try {
-          const res = await fetch(`http://localhost:${PORT}/api/health`);
+          const res = await fetch(`${BASE_URL}/api/health`);
           if (res.ok) { started = true; break; }
         } catch {
           // Not ready yet
         }
       }
 
-      if (opts.json) return printJson({ started, port: PORT, url: `http://localhost:${PORT}` });
+      if (opts.json) return printJson({ started, url: BASE_URL });
       if (started) {
-        console.log(`Oracle server started on port ${PORT}.`);
-        console.log(`URL: http://localhost:${PORT}`);
+        console.log(`Oracle server started at ${BASE_URL}.`);
       } else {
         console.error('Failed to start Oracle server.');
         process.exit(1);
@@ -62,11 +62,9 @@ export function registerServer(program: Command): void {
     .description('Stop the Oracle server')
     .option('--json', 'Output raw JSON')
     .action(async (opts) => {
-      // Try graceful HTTP shutdown
       try {
-        await fetch(`http://localhost:${PORT}/api/shutdown`, { method: 'POST' });
+        await fetch(`${BASE_URL}/api/shutdown`, { method: 'POST' });
       } catch {
-        // Server might not be running or already stopped
         if (opts.json) return printJson({ stopped: true, was_running: false });
         console.log('Oracle server is not running.');
         return;
@@ -78,7 +76,7 @@ export function registerServer(program: Command): void {
       while (Date.now() < deadline) {
         await new Promise(r => setTimeout(r, 300));
         try {
-          await fetch(`http://localhost:${PORT}/api/health`);
+          await fetch(`${BASE_URL}/api/health`);
         } catch {
           stopped = true;
           break;
@@ -89,7 +87,7 @@ export function registerServer(program: Command): void {
       if (stopped) {
         console.log('Oracle server stopped.');
       } else {
-        console.error(`Server may still be running on port ${PORT}.`);
+        console.error(`Server may still be running at ${BASE_URL}.`);
         process.exit(1);
       }
     });
@@ -114,7 +112,7 @@ async function showStatus(opts: any): Promise<void> {
   let healthData: any = null;
 
   try {
-    const res = await fetch(`http://localhost:${PORT}/api/health`);
+    const res = await fetch(`${BASE_URL}/api/health`);
     running = true;
     healthy = res.ok;
     if (res.ok) healthData = await res.json();
@@ -124,15 +122,13 @@ async function showStatus(opts: any): Promise<void> {
 
   const status = {
     running,
-    port: PORT,
     healthy,
-    url: `http://localhost:${PORT}`,
+    url: BASE_URL,
     ...(healthData || {}),
   };
 
   if (opts.json) return printJson(status);
   console.log(`Running:  ${running ? 'yes' : 'no'}`);
-  console.log(`Port:     ${PORT}`);
   console.log(`Healthy:  ${healthy ? 'yes' : 'no'}`);
-  console.log(`URL:      http://localhost:${PORT}`);
+  console.log(`URL:      ${BASE_URL}`);
 }

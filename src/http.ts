@@ -5,8 +5,7 @@
  * Requires oracle-v2 server to be running.
  */
 
-const PORT = process.env.ORACLE_PORT || '47778';
-const BASE_URL = `http://localhost:${PORT}`;
+const BASE_URL = process.env.ORACLE_URL || `http://localhost:${process.env.ORACLE_PORT || '47778'}`;
 
 export interface FetchOptions {
   method?: string;
@@ -32,7 +31,7 @@ export async function oracleFetch<T = any>(path: string, options?: FetchOptions)
   try {
     res = await fetch(url.toString(), fetchOpts);
   } catch {
-    throw new Error(`Oracle server not running on port ${PORT}. Start with: oracle-cli server start`);
+    throw new Error(`Cannot connect to Oracle at ${BASE_URL}. Set ORACLE_URL or start with: oracle-cli server start`);
   }
 
   if (!res.ok) {

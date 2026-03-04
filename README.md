@@ -97,7 +97,15 @@ oracle-cli server status --json
 
 | Environment Variable | Default | Description |
 |---------------------|---------|-------------|
-| `ORACLE_PORT` | `47778` | Server port |
+| `ORACLE_URL` | `http://localhost:47778` | Full server URL (takes priority) |
+| `ORACLE_PORT` | `47778` | Server port (used when `ORACLE_URL` is not set) |
+
+Point to a remote Oracle server:
+
+```bash
+export ORACLE_URL=https://oracle.example.com
+oracle-cli stats
+```
 
 ## Architecture
 
