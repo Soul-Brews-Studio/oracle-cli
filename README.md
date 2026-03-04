@@ -4,16 +4,12 @@ Standalone command-line interface for [Oracle](https://github.com/Soul-Brews-Stu
 
 Pure HTTP client — no server internals, no database access. Talks to the Oracle server over `localhost`.
 
-## Install
+## Usage
+
+No install needed — run directly from GitHub:
 
 ```bash
-bun add -g oracle-cli
-```
-
-Or run directly:
-
-```bash
-bunx oracle-cli <command>
+bunx github:Soul-Brews-Studio/oracle-cli <command>
 ```
 
 ## Prerequisites
@@ -119,19 +115,21 @@ oracle-cli ──HTTP──> oracle-v2 server (:47778)
 - **`server start`** spawns oracle-v2 via `Bun.spawn(['bunx', 'oracle-v2', '--server'])`
 - **`vault *`** delegates to `execSync('bunx oracle-v2 vault ...')`
 
+## Quick Run (no install)
+
+```bash
+bunx github:Soul-Brews-Studio/oracle-cli stats
+bunx github:Soul-Brews-Studio/oracle-cli search "patterns"
+```
+
 ## Development
 
 ```bash
-git clone git@github.com:Soul-Brews-Studio/oracle-cli.git
-cd oracle-cli
+ghq get -p Soul-Brews-Studio/oracle-cli
+cd $(ghq root)/github.com/Soul-Brews-Studio/oracle-cli
 bun install
 bun run src/index.ts --help
-```
-
-Type-check:
-
-```bash
-bun run build
+bun run build   # type-check
 ```
 
 ## License
