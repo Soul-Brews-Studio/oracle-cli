@@ -4,7 +4,9 @@ import { execSync } from 'child_process';
 export function registerVault(program: Command): void {
   const vault = program
     .command('vault')
-    .description('Manage Oracle knowledge vault (delegates to oracle-v2)');
+    .description('Manage Oracle knowledge vault (delegates to oracle-v2)')
+    .enablePositionalOptions()
+    .passThroughOptions();
 
   vault
     .command('init <repo>')

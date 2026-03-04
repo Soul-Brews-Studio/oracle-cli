@@ -35,7 +35,8 @@ const program = new Command();
 program
   .name('oracle-cli')
   .description('Oracle CLI — command-line interface for Oracle knowledge base')
-  .version(pkg.version);
+  .version(pkg.version)
+  .enablePositionalOptions();
 
 // Error wrapper for all commands
 const originalParse = program.parseAsync.bind(program);

@@ -6,7 +6,9 @@ const PORT = process.env.ORACLE_PORT || '47778';
 export function registerServer(program: Command): void {
   const srv = program
     .command('server')
-    .description('Manage Oracle HTTP server');
+    .description('Manage Oracle HTTP server')
+    .enablePositionalOptions()
+    .passThroughOptions();
 
   srv
     .command('start')

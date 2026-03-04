@@ -5,7 +5,9 @@ import { printJson, printSchedule } from '../format.ts';
 export function registerSchedule(program: Command): void {
   const sched = program
     .command('schedule')
-    .description('View and manage scheduled events');
+    .description('View and manage scheduled events')
+    .enablePositionalOptions()
+    .passThroughOptions();
 
   sched
     .command('list')
