@@ -1,6 +1,6 @@
 # oracle-cli
 
-Standalone command-line interface for [Oracle](https://github.com/Soul-Brews-Studio/oracle-v2) knowledge base.
+Standalone command-line interface for [Oracle](https://github.com/Soul-Brews-Studio/arra-oracle) knowledge base.
 
 Pure HTTP client — no server internals, no database access. Talks to the Oracle server over `localhost`.
 
@@ -20,7 +20,7 @@ Oracle server must be running. Start it with:
 oracle-cli server start
 ```
 
-This spawns `oracle-v2` in the background. You need [oracle-v2](https://github.com/Soul-Brews-Studio/oracle-v2) installed or available via `bunx`.
+This spawns `arra-oracle` in the background. You need [arra-oracle](https://github.com/Soul-Brews-Studio/arra-oracle) installed or available via `bunx`.
 
 ## Commands
 
@@ -69,7 +69,7 @@ oracle-cli inbox                    # View handoff inbox
 
 ```bash
 oracle-cli server status            # Check if running
-oracle-cli server start             # Start oracle-v2 server
+oracle-cli server start             # Start arra-oracle server
 oracle-cli server stop              # Graceful HTTP shutdown
 ```
 
@@ -110,7 +110,7 @@ oracle-cli stats
 ## Architecture
 
 ```
-oracle-cli ──HTTP──> oracle-v2 server (:47778)
+oracle-cli ──HTTP──> arra-oracle server (:47778)
                          │
                     ┌────┴────┐
                     │ SQLite  │
@@ -120,8 +120,8 @@ oracle-cli ──HTTP──> oracle-v2 server (:47778)
 ```
 
 - **9 commands** are pure HTTP (`fetch` against `/api/*`)
-- **`server start`** spawns oracle-v2 via `Bun.spawn(['bunx', 'oracle-v2', '--server'])`
-- **`vault *`** delegates to `execSync('bunx oracle-v2 vault ...')`
+- **`server start`** spawns arra-oracle via `Bun.spawn(['bunx', 'arra-oracle', '--server'])`
+- **`vault *`** delegates to `execSync('bunx arra-oracle vault ...')`
 
 ## Quick Run (no install)
 

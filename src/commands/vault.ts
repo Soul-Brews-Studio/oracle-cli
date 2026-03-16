@@ -4,7 +4,7 @@ import { execSync } from 'child_process';
 export function registerVault(program: Command): void {
   const vault = program
     .command('vault')
-    .description('Manage Oracle knowledge vault (delegates to oracle-v2)')
+    .description('Manage Oracle knowledge vault (delegates to arra-oracle)')
     .enablePositionalOptions()
     .passThroughOptions();
 
@@ -65,7 +65,7 @@ export function registerVault(program: Command): void {
 
 function runVaultCommand(subcommand: string, opts: any): void {
   try {
-    execSync(`bunx oracle-v2 vault ${subcommand}`, {
+    execSync(`bunx arra-oracle vault ${subcommand}`, {
       stdio: opts.json ? 'pipe' : 'inherit',
       env: process.env as Record<string, string>,
     });

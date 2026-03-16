@@ -2,7 +2,7 @@
 /**
  * Oracle CLI — standalone command-line interface for Oracle knowledge base
  *
- * Pure HTTP client. Requires oracle-v2 server running.
+ * Pure HTTP client. Requires arra-oracle server running.
  *
  * Usage:
  *   oracle-cli <command> [options]

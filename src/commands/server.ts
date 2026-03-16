@@ -13,7 +13,7 @@ export function registerServer(program: Command): void {
 
   srv
     .command('start')
-    .description('Start the Oracle server (via oracle-v2)')
+    .description('Start the Oracle server (via arra-oracle)')
     .option('--json', 'Output raw JSON')
     .action(async (opts) => {
       // Check if already running
@@ -28,8 +28,8 @@ export function registerServer(program: Command): void {
         // Not running, proceed to start
       }
 
-      // Spawn oracle-v2 server detached
-      const proc = Bun.spawn(['bunx', 'oracle-v2', '--server'], {
+      // Spawn arra-oracle server detached
+      const proc = Bun.spawn(['bunx', 'arra-oracle', '--server'], {
         stdio: ['ignore', 'ignore', 'ignore'],
         env: { ...process.env, ORACLE_PORT: PORT },
       });
