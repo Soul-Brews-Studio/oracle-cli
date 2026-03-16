@@ -2,7 +2,7 @@
  * Shared HTTP client for Oracle CLI
  *
  * Pure HTTP client — no server internals, no auto-start.
- * Requires oracle-v2 server to be running.
+ * Requires arra-oracle server to be running.
  */
 
 const BASE_URL = process.env.ORACLE_URL || `http://localhost:${process.env.ORACLE_PORT || '47778'}`;
