@@ -1,11 +1,11 @@
 {
-  "name": "oracle-cli",
-  "version": "0.1.0",
-  "description": "Oracle CLI — command-line interface for Oracle knowledge base",
+  "name": "arra-cli",
+  "version": "0.2.0",
+  "description": "Arra CLI — command-line interface for Oracle knowledge base",
   "type": "module",
   "main": "src/index.ts",
   "bin": {
-    "oracle-cli": "./src/index.ts"
+    "arra": "./src/index.ts"
   },
   "files": [
     "src",
@@ -33,6 +33,7 @@
     "typescript": "^5.7.2"
   },
   "keywords": [
+    "arra",
     "oracle",
     "cli",
     "knowledge-base"

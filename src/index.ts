@@ -1,11 +1,11 @@
 #!/usr/bin/env bun
 /**
- * Oracle CLI — standalone command-line interface for Oracle knowledge base
+ * Arra CLI — command-line interface for Oracle knowledge base
  *
  * Pure HTTP client. Requires arra-oracle server running.
  *
  * Usage:
- *   oracle-cli <command> [options]
+ *   arra <command> [options]
  *
  * Commands:
  *   search <query>      Search the knowledge base
@@ -33,8 +33,8 @@ const pkg = JSON.parse(
 
 const program = new Command();
 program
-  .name('oracle-cli')
-  .description('Oracle CLI — command-line interface for Oracle knowledge base')
+  .name('arra')
+  .description('Arra CLI — command-line interface for Oracle knowledge base')
   .version(pkg.version)
   .enablePositionalOptions();
 

@@ -31,7 +31,7 @@ export async function oracleFetch<T = any>(path: string, options?: FetchOptions)
   try {
     res = await fetch(url.toString(), fetchOpts);
   } catch {
-    throw new Error(`Cannot connect to Oracle at ${BASE_URL}. Set ORACLE_URL or start with: oracle-cli server start`);
+    throw new Error(`Cannot connect to Oracle at ${BASE_URL}. Set ORACLE_URL or start with: arra server start`);
   }
 
   if (!res.ok) {
