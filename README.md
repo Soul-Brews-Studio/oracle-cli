@@ -1,6 +1,6 @@
-# oracle-cli
+# arra-cli
 
-Standalone command-line interface for [Oracle](https://github.com/Soul-Brews-Studio/oracle-v2) knowledge base.
+Command-line interface for [Oracle](https://github.com/Soul-Brews-Studio/arra-oracle) knowledge base.
 
 Pure HTTP client — no server internals, no database access. Talks to the Oracle server over `localhost`.
 
@@ -17,70 +17,70 @@ bunx github:Soul-Brews-Studio/oracle-cli <command>
 Oracle server must be running. Start it with:
 
 ```bash
-oracle-cli server start
+arra server start
 ```
 
-This spawns `oracle-v2` in the background. You need [oracle-v2](https://github.com/Soul-Brews-Studio/oracle-v2) installed or available via `bunx`.
+This spawns `arra-oracle` in the background. You need [arra-oracle](https://github.com/Soul-Brews-Studio/arra-oracle) installed or available via `bunx`.
 
 ## Commands
 
 ### Knowledge Base
 
 ```bash
-oracle-cli search <query>           # Search (hybrid, fts, or vector)
-oracle-cli search "patterns" -l 5   # Limit results
-oracle-cli search "vault" -m fts    # FTS-only mode
-oracle-cli search "auth" -p myproj  # Filter by project
+arra search <query>           # Search (hybrid, fts, or vector)
+arra search "patterns" -l 5   # Limit results
+arra search "vault" -m fts    # FTS-only mode
+arra search "auth" -p myproj  # Filter by project
 
-oracle-cli learn -p "lesson text"   # Add a learning
-oracle-cli learn -p "lesson" -c "tag1,tag2" --origin human
+arra learn -p "lesson text"   # Add a learning
+arra learn -p "lesson" -c "tag1,tag2" --origin human
 
-oracle-cli list                     # List documents
-oracle-cli list -t learning -l 20   # Filter by type
+arra list                     # List documents
+arra list -t learning -l 20   # Filter by type
 
-oracle-cli stats                    # Knowledge base statistics
+arra stats                    # Knowledge base statistics
 ```
 
 ### Threads
 
 ```bash
-oracle-cli threads                  # List threads
-oracle-cli threads -s open          # Open threads only
-oracle-cli thread <id>              # View thread + messages
+arra threads                  # List threads
+arra threads -s open          # Open threads only
+arra thread <id>              # View thread + messages
 ```
 
 ### Schedule
 
 ```bash
-oracle-cli schedule                 # List upcoming events
-oracle-cli schedule list -d 2026-03-05
-oracle-cli schedule add -d 2026-03-10 -e "Meeting" -t 14:00
+arra schedule                 # List upcoming events
+arra schedule list -d 2026-03-05
+arra schedule add -d 2026-03-10 -e "Meeting" -t 14:00
 ```
 
 ### Traces & Inbox
 
 ```bash
-oracle-cli traces                   # List discovery traces
-oracle-cli trace <id>               # View a trace
-oracle-cli inbox                    # View handoff inbox
+arra traces                   # List discovery traces
+arra trace <id>               # View a trace
+arra inbox                    # View handoff inbox
 ```
 
 ### Server Management
 
 ```bash
-oracle-cli server status            # Check if running
-oracle-cli server start             # Start oracle-v2 server
-oracle-cli server stop              # Graceful HTTP shutdown
+arra server status            # Check if running
+arra server start             # Start arra-oracle server
+arra server stop              # Graceful HTTP shutdown
 ```
 
 ### Vault
 
 ```bash
-oracle-cli vault status             # Vault config & pending changes
-oracle-cli vault sync               # Commit + push to GitHub
-oracle-cli vault pull               # Pull vault files locally
-oracle-cli vault init owner/repo    # Initialize vault
-oracle-cli vault migrate --list     # Find repos with psi directories
+arra vault status             # Vault config & pending changes
+arra vault sync               # Commit + push to GitHub
+arra vault pull               # Pull vault files locally
+arra vault init owner/repo    # Initialize vault
+arra vault migrate --list     # Find repos with psi directories
 ```
 
 ### Global Options
@@ -88,9 +88,9 @@ oracle-cli vault migrate --list     # Find repos with psi directories
 Every command supports `--json` for machine-readable output:
 
 ```bash
-oracle-cli stats --json
-oracle-cli search "query" --json
-oracle-cli server status --json
+arra stats --json
+arra search "query" --json
+arra server status --json
 ```
 
 ## Configuration
@@ -104,24 +104,24 @@ Point to a remote Oracle server:
 
 ```bash
 export ORACLE_URL=https://oracle.example.com
-oracle-cli stats
+arra stats
 ```
 
 ## Architecture
 
 ```
-oracle-cli ──HTTP──> oracle-v2 server (:47778)
-                         │
-                    ┌────┴────┐
-                    │ SQLite  │
-                    │ + FTS5  │
-                    │ + vec   │
-                    └─────────┘
+arra ──HTTP──> arra-oracle server (:47778)
+                    │
+               ┌────┴────┐
+               │ SQLite  │
+               │ + FTS5  │
+               │ + vec   │
+               └─────────┘
 ```
 
 - **9 commands** are pure HTTP (`fetch` against `/api/*`)
-- **`server start`** spawns oracle-v2 via `Bun.spawn(['bunx', 'oracle-v2', '--server'])`
-- **`vault *`** delegates to `execSync('bunx oracle-v2 vault ...')`
+- **`server start`** spawns arra-oracle via `Bun.spawn(['bunx', 'arra-oracle', '--server'])`
+- **`vault *`** delegates to `execSync('bunx arra-oracle vault ...')`
 
 ## Quick Run (no install)
 

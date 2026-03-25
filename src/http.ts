@@ -2,7 +2,7 @@
  * Shared HTTP client for Oracle CLI
  *
  * Pure HTTP client — no server internals, no auto-start.
- * Requires oracle-v2 server to be running.
+ * Requires arra-oracle server to be running.
  */
 
 const BASE_URL = process.env.ORACLE_URL || `http://localhost:${process.env.ORACLE_PORT || '47778'}`;
@@ -31,7 +31,7 @@ export async function oracleFetch<T = any>(path: string, options?: FetchOptions)
   try {
     res = await fetch(url.toString(), fetchOpts);
   } catch {
-    throw new Error(`Cannot connect to Oracle at ${BASE_URL}. Set ORACLE_URL or start with: oracle-cli server start`);
+    throw new Error(`Cannot connect to Oracle at ${BASE_URL}. Set ORACLE_URL or start with: arra server start`);
   }
 
   if (!res.ok) {
